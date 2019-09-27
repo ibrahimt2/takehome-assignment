@@ -11,11 +11,12 @@
 
 <script>
 export default {
-  data: {
+  data: function() {
+    return {
       count: 0
-  },
+    };
+  }
 
-  props: ['count']
 };
 </script>
 
