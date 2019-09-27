@@ -10,7 +10,17 @@
 
 export default {
   
-  props:[]
+  props: {
+    name: {
+      type: String
+    },
+    episodes_seen: {
+      type: Number
+    },
+    id: {
+      type: Number
+    }
+  }
 
 }
 </script>

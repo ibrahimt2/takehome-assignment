@@ -3,8 +3,8 @@
     <p>I'm a Counter!</p>
     <p>{{count}}</p>
 
-    <button v-on:click="count++">+1</button>
-    <button v-on:click="count--">-1</button>
+    <button v-on:click="count += 1">+1</button>
+    <button v-on:click="count += -1">-1</button>
   
   </div>
 </template>
@@ -15,6 +15,12 @@ export default {
     return {
       count: 0
     };
+  },
+
+  props: {
+    artists: {
+      type: Number
+    }
   }
 
 };
