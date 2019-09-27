@@ -1,3 +1,6 @@
+
+
+
 from typing import Tuple
 
 from flask import Flask, jsonify, request, Response
@@ -61,6 +64,47 @@ def delete_show(id):
         return create_response(status=404, message="No show with this id exists")
     db.deleteById('shows', int(id))
     return create_response(message="Show deleted")
+
+@app.route("/shows/<id>", methods=['GET'])
+def get_specific_show(id):
+    if db.getById('shows', int(id)) is None:
+        return create_response(status=404, message="No show with this id exists")
+    db.getById('shows', int(id))
+    return create_response(db.getById('shows', int(id)))
+
+@app.route("/shows", methods=['POST'])
+
+def create_new_show():
+
+    data = request.get_json()
+ 
+    #Checks to see if the JSON body has a dictionary entry with key 'name', returns error if not
+    if 'name' in data:
+        name = data['name']
+    else:
+        return create_response(message="You must enter a name", status = 422)
+
+    #Checks to see if the JSON body has a dictionary entry with key 'episodes_seen', returns error if not
+    if 'episodes_seen' in data:
+        episodes_seen = data['episodes_seen']
+    else:
+        return create_response(message="You must enter the number of episodes seen", status = 422)
+
+    #Creates new entry
+    new_entry = db.create("shows", {"name" : name, "episodes_seen" : episodes_seen})
+
+    return create_response(new_entry, status = 202, message="Your show has successfully been added")
+    
+@app.route("/shows/<id>", methods=['PUT'])
+
+def update_show(id):
+
+    if db.getById('shows', int(id)) is None:
+        return create_response(status=404, message="No show with this id exists")
+
+    data = request.get_json()
+    updatedEntry = db.updateById("shows", int(id), data)
+    return create_response(updatedEntry, message="Your show has been updated")
 
 
 # TODO: Implement the rest of the API here!

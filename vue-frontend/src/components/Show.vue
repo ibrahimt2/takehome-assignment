@@ -1,11 +1,18 @@
 <template>
   <!-- PART 4: Add your code here -->
-  <div></div>
+  <div>
+    <p>{{name}}</p>
+    <Counter v-bind:count='episodes_seen'></Counter>
+  </div>
 </template>
 
 <script>
-// PART 4: Add your code here
-export default {};
+
+export default {
+  
+  props:[]
+
+}
 </script>
 
 <style>
